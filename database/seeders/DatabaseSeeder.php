@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Status::created(['title' => 'новая']);
-        Status::created(['title' => 'в процессе']);
-        Status::created(['title' => 'завершена']);
-        Status::created(['title' => 'отменена']);
+        Status::create(['title' => 'новая']);
+        Status::create(['title' => 'в процессе']);
+        Status::create(['title' => 'завершена']);
+        Status::create(['title' => 'отменена']);
 
-        User::firstOrCreate(
+        User::create(
             [
                 'firstname' => 'Admin',
                 'middlename' => 'Admin',

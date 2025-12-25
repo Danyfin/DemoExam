@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Order;
+use App\Models\Status;
 use Livewire\Volt\Component;
 
 new class extends Component {
@@ -20,6 +21,8 @@ new class extends Component {
             'payment' => 'required|in:наличными,банковская карта,безналичный расчет',
         ]);
 
+        $status = Status::firstOrCreate(['title' => 'новая']);
+
         Order::create([
             'address' => $validated['address'],
             'type' => $validated['type'],
@@ -27,7 +30,7 @@ new class extends Component {
             'time' => $validated['time'],
             'payment' => $validated['payment'],
             'user_id' => auth()->id(),
-            'status_id' => 1, // новая
+            'status_id' => $status->id, 
         ]);
 
         $this->reset();
@@ -74,7 +77,7 @@ new class extends Component {
                             @error('date') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                         </div>
 
-                        <div>
+<div>
                             <label for="time" class="block text-sm font-medium">Время начала работ</label>
                             <input type="time" id="time" wire:model="time" 
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
